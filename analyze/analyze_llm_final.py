@@ -1,6 +1,6 @@
-!pip install google-genai
+pip install google-genai
 
-!pip install langchain
+pip install langchain
 
 from google import genai
 import json, os
