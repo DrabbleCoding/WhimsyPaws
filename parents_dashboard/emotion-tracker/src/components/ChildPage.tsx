@@ -66,7 +66,7 @@ const ChildPage: React.FC = () => {
 
       if (response.ok) {
         setInputText('');
-        setMessage('Thank you for sharing! How else are you feeling?');
+        // Don't set a default message, let the polling handle the response
       } else {
         setMessage('Sorry, there was an error sending your message. Please try again.');
       }

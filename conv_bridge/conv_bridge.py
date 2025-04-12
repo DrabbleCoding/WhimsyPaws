@@ -78,11 +78,11 @@ def monitor_for_new_bot_message():
             current_last_bot = get_last_bot_message()
             
             # If we found a new Bot message
-            if current_last_bot and current_last_bot != last_known_bot_message:
+            if current_last_bot: # and current_last_bot != last_known_bot_message:
                 last_known_bot_message = current_last_bot
                 console_input_handler(current_last_bot)
-                monitoring_active = False  # Stop monitoring after finding a new message
-                break
+                #monitoring_active = False  # Stop monitoring after finding a new message
+                #break
                 
             time.sleep(1)  # Check every second
         except Exception as e:
