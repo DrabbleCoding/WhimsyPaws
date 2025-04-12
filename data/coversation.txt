@@ -72,4 +72,4 @@ User: It was fun! And the piano sounds cool. I think I might give it a try.
 Bot (happy):I think you’d be great at it! Keep me posted on how it goes.Bot (happy): That's wonderful!  Playing the piano sounds like so much fun.  What made the piano sound cool to you?
 
 Date: 12/04/2025
-Bot (happy):How’s everything today?
+Bot (happy):How's everything today?

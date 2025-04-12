@@ -60,6 +60,7 @@ def get_last_bot_message():
             if line.startswith('Bot'):
                 # Extract just the message content, removing the emotional state
                 message = line.split('):', 1)[1].strip()
+                #print(message)
                 return message
                 
         return None
@@ -76,15 +77,16 @@ def monitor_for_new_bot_message():
     while monitoring_active:
         try:
             current_last_bot = get_last_bot_message()
+            print(current_last_bot)
             
             # If we found a new Bot message
-            if current_last_bot: # and current_last_bot != last_known_bot_message:
+            if current_last_bot != '': # and current_last_bot != last_known_bot_message:
                 last_known_bot_message = current_last_bot
                 console_input_handler(current_last_bot)
                 #monitoring_active = False  # Stop monitoring after finding a new message
                 #break
                 
-            time.sleep(1)  # Check every second
+            time.sleep(0.25)  # Check every second
         except Exception as e:
             print(f"Error monitoring conversation file: {e}", file=sys.stderr)
             time.sleep(1)
@@ -158,7 +160,7 @@ def poll_messages():
         JSON response with the next message or empty if none available
     """
     try:
-        message = message_queue.get_nowait()
+        message = message_queue.get() #.get_nowait()
         return jsonify({
             "status": "success",
             "message": message
