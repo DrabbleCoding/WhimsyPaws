@@ -27,10 +27,35 @@ const emotions = [
 const ChildPage: React.FC = () => {
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [message, setMessage] = useState<string>('How are you feeling today?');
+  const [inputText, setInputText] = useState<string>('');
 
   const handleEmotionClick = (emotion: string) => {
     setSelectedEmotion(emotion);
     setMessage(`You're feeling ${emotion.toLowerCase()}! Would you like to tell me more?`);
+  };
+
+  const handleSubmit = async () => {
+    if (!inputText.trim()) return;
+
+    try {
+      const response = await fetch('http://localhost:5000/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: inputText }),
+      });
+
+      if (response.ok) {
+        setInputText('');
+        setMessage('Thank you for sharing! How else are you feeling?');
+      } else {
+        setMessage('Sorry, there was an error sending your message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setMessage('Sorry, there was an error sending your message. Please try again.');
+    }
   };
 
   return (
@@ -63,8 +88,11 @@ const ChildPage: React.FC = () => {
               type="text"
               className="feeling-input"
               placeholder="Tell me more about how you feel..."
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
             />
-            <button className="submit-button">
+            <button className="submit-button" onClick={handleSubmit}>
               Send
             </button>
           </div>
