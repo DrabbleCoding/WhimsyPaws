@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ChildPage.css';
 
 // Import cloud assets
@@ -28,6 +28,24 @@ const ChildPage: React.FC = () => {
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [message, setMessage] = useState<string>('How are you feeling today?');
   const [inputText, setInputText] = useState<string>('');
+
+  // Poll for new messages from the server
+  useEffect(() => {
+    const pollInterval = setInterval(async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/poll');
+        const data = await response.json();
+        
+        if (data.status === 'success' && data.message) {
+          setMessage(data.message);
+        }
+      } catch (error) {
+        console.error('Error polling for messages:', error);
+      }
+    }, 1000); // Poll every second
+
+    return () => clearInterval(pollInterval);
+  }, []);
 
   const handleEmotionClick = (emotion: string) => {
     setSelectedEmotion(emotion);
