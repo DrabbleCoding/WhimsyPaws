@@ -5,7 +5,7 @@
 from google import genai
 import json, os
 
-client = genai.Client(api_key="AIzaSyDaDFAWP27dDnFDY1aio2TC5F3SXL7biig")
+client = genai.Client(api_key="")
 
 # Import necessary libraries
 from langchain.prompts import PromptTemplate
