@@ -108,7 +108,7 @@ class ParentInputHandler:
                 observations.append((date, message))
             
             # Return the most recent observations
-            return observations[-count:]
+            return observations[-count:][::-1]
         except Exception as e:
             print(f"Error retrieving observations: {str(e)}")
             return []
