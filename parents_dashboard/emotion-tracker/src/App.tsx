@@ -3,6 +3,7 @@ import './styles/global.css';
 import EmotionChart from './components/EmotionChart';
 import SummaryList from './components/SummaryList';
 import ChildPage from './components/ChildPage';
+import PasscodeModal from './components/PasscodeModal';
 
 // Import the data files from the src directory
 import emotionsData from './emotions.json';
@@ -30,6 +31,12 @@ function App() {
   const [emotionData, setEmotionData] = useState<EmotionData[]>([]);
   const [summaries, setSummaries] = useState<SummaryData[]>([]);
   const [currentPage, setCurrentPage] = useState<'parent' | 'child'>('parent');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [targetDashboard, setTargetDashboard] = useState<'parent' | 'child'>('parent');
+
+  // In a real app, these would be stored securely and possibly different for each user
+  const PARENT_PASSCODE = '1234';
+  const CHILD_PASSCODE = '5678';
 
   useEffect(() => {
     // Convert the emotions data to the format we need
@@ -57,6 +64,23 @@ function App() {
     setSummaries(formattedSummaries);
   }, []);
 
+  const handleDashboardSwitch = (target: 'parent' | 'child') => {
+    setTargetDashboard(target);
+    setIsModalOpen(true);
+  };
+
+  const handlePasscodeSubmit = (passcode: string) => {
+    const correctPasscode = targetDashboard === 'parent' ? PARENT_PASSCODE : CHILD_PASSCODE;
+    
+    if (passcode === correctPasscode) {
+      setCurrentPage(targetDashboard);
+      setIsModalOpen(false);
+    } else {
+      // In a real app, you might want to handle incorrect passcodes differently
+      alert('Incorrect passcode. Please try again.');
+    }
+  };
+
   return (
     <div className="app">
       <header className="app-header">
@@ -65,13 +89,13 @@ function App() {
         <div className="navigation-buttons">
           <button 
             className={`nav-button ${currentPage === 'parent' ? 'active' : ''}`}
-            onClick={() => setCurrentPage('parent')}
+            onClick={() => handleDashboardSwitch('parent')}
           >
             Parent's Dashboard
           </button>
           <button 
             className={`nav-button ${currentPage === 'child' ? 'active' : ''}`}
-            onClick={() => setCurrentPage('child')}
+            onClick={() => handleDashboardSwitch('child')}
           >
             Child's Dashboard
           </button>
@@ -97,6 +121,13 @@ function App() {
       <footer className="app-footer">
         <p>Data last updated: {new Date().toLocaleDateString()}</p>
       </footer>
+
+      <PasscodeModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handlePasscodeSubmit}
+        targetDashboard={targetDashboard}
+      />
     </div>
   );
 }
