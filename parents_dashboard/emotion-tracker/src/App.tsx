@@ -104,15 +104,53 @@ function App() {
       
       <main className="main-content">
         {currentPage === 'parent' ? (
-          <>
-            <section className="chart-section">
-              <EmotionChart data={emotionData} summaryData={summaries} />
-            </section>
-            
-            <section className="summary-section">
-              <SummaryList summaries={summaries} />
-            </section>
-          </>
+          <div className="content-grid">
+            <div className="left-column">
+              <section className="chart-section">
+                <h2>Emotion Chart</h2>
+                <div className="chart-container">
+                  <EmotionChart data={emotionData} summaryData={summaries} />
+                </div>
+              </section>
+
+              <section className="resources-section">
+                <h2>Resources & Suggestions</h2>
+                <div className="resources-container">
+                  <div className="resource-card">
+                    <h3>Understanding Emotions</h3>
+                    <p>Learn more about emotions and how to help children identify and express their feelings.</p>
+                    <a 
+                      href="https://mentalhealthcenterkids.com/blogs/articles/emotion-wheel-for-kids" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="resource-link"
+                    >
+                      Emotion Wheel Guide for Kids
+                    </a>
+                  </div>
+                  <div className="resource-card">
+                    <h3>Healthy Communication</h3>
+                    <p>Discover effective ways to communicate with your child about their emotions.</p>
+                    <a 
+                      href="https://centerforparentingeducation.org/library-of-articles/healthy-communication/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="resource-link"
+                    >
+                      Healthy Communication Guide
+                    </a>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div className="right-column">
+              <section className="summary-section">
+                <h2>Emotion Summary</h2>
+                <SummaryList summaries={summaries} />
+              </section>
+            </div>
+          </div>
         ) : (
           <ChildPage />
         )}

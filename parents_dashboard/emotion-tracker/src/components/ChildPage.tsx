@@ -9,7 +9,7 @@ import fearfulCloud from '../images/assets/fearful_cloud.png';
 import disgustedCloud from '../images/assets/disgusted_cloud.png';
 import surprisedCloud from '../images/assets/surprised_cloud.png';
 import neutralCloud from '../images/assets/neutral_cloud.png';
-import grass from '../images/assets/grass.png';
+import grass from '../images/assets/grass1.png';
 
 // Import bear icon
 import bearNeutral from '../images/icons/bear_neutral.png';
