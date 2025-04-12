@@ -13,6 +13,10 @@ st.set_page_config(
 # Initialize the handler
 handler = ParentInputHandler()
 
+# Initialize session state for text area
+if 'text_area_key' not in st.session_state:
+    st.session_state.text_area_key = 0
+
 # Custom CSS for styling
 st.markdown("""
     <style>
@@ -49,11 +53,15 @@ col1, col2 = st.columns([2, 1])
 # Input section in the first column
 with col1:
     st.markdown("### Enter Your Observations")
-    observation = st.text_area(
-        "Share your observations about your child's well-being today:",
-        height=200,
-        placeholder="Enter your observations here..."
-    )
+    text_area_placeholder = st.empty()
+    
+    with text_area_placeholder.container():
+        observation = st.text_area(
+            "Share your observations about your child's well-being today:",
+            height=200,
+            placeholder="Enter your observations here...",
+            key=f'text_area_{st.session_state.text_area_key}'
+        )
     
     if st.button("Save Observation", key="save_button"):
         if observation.strip():
@@ -61,8 +69,16 @@ with col1:
             success = handler.add_observation(observation)
             if success:
                 st.success("Observation saved successfully!")
-                # Clear the text area
-                st.experimental_rerun()
+                # Clear the text area by incrementing the key
+                st.session_state.text_area_key += 1
+                text_area_placeholder.empty()
+                with text_area_placeholder.container():
+                    st.text_area(
+                        "Share your observations about your child's well-being today:",
+                        height=200,
+                        placeholder="Enter your observations here...",
+                        key=f'text_area_{st.session_state.text_area_key}'
+                    )
             else:
                 st.error("Failed to save observation. Please try again.")
         else:
