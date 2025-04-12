@@ -3,7 +3,7 @@
 !pip install langchain
 
 from google import genai
-import json
+import json, os
 
 client = genai.Client(api_key="AIzaSyDaDFAWP27dDnFDY1aio2TC5F3SXL7biig")
 
@@ -106,11 +106,15 @@ def analyze_sentiment(text, max_length=512):
         sentiment_by_date[date] = day_scores
     print("sentiment_by_date", sentiment_by_date)
     
-    # Save to JSON
-    with open("daily_sentiment.json", "w") as f:
-        json.dump(sentiment_by_date, f, indent=2)
-    
-    print("✅ Sentiment scores saved to daily_sentiment.json")
+
+    # Ensure the output folder exists
+    os.makedirs("output", exist_ok=True)
+
+    # Save the sentiment result
+    with open("output/emotions.json", "w", encoding="utf-8") as f:
+        json.dump(sentiment_by_date, f, indent=2, ensure_ascii=False)
+
+    print("✅ Sentiment scores saved to output/emotions.json")
 
 
 
