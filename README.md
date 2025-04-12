@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -44,3 +45,37 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+=======
+# 🧸 Child Chatbot with Emotion Detection (Gemini API)
+
+This is a simple, supportive chatbot designed for children aged 6–11. It uses Google’s Gemini model to engage in friendly, emotionally aware conversations, and labels responses based on emotional tone (Happy, Sad, Neutral).
+
+## 💡 Features
+
+- Cheerful chatbot for kids aged 6–11
+- Emotion detection based on child input
+- Supportive, age-appropriate conversation
+- Saves chat history to a `.txt` file
+
+## 🚀 How to Run
+
+### 1. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Set your Gemini API Key
+
+```bash
+export GEMINI_API_KEY=your-gemini-api-key
+```
+
+### 3. Run the chatbot
+
+```bash
+python child_chatbot.py
+```
+
+
+>>>>>>> origin/child_chatbot_sanaz
