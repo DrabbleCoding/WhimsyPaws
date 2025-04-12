@@ -10,7 +10,7 @@ from transformers import pipeline
 # ----------------------------------
 # 🔑 Set up Gemini API client
 # ----------------------------------
-client = genai.Client(api_key="AIzaSyDaDFAWP27dDnFDY1aio2TC5F3SXL7biig")  
+client = genai.Client(api_key="")  
 
 # ----------------------------------
 # 🧠 Prompt Template
@@ -75,28 +75,61 @@ def gemini_summarize(text):
 # ----------------------------------
 # 💬 Sentiment Analysis
 # ----------------------------------
-def analyze_sentiment(text, max_length=512):
-    daily_summaries = {
-        date.strip(): summary.strip()
-        for date, summary in re.findall(r"(\d{2}/\d{2}/\d{4}):\n(.+?)(?=\n\d{2}/\d{2}/\d{4}:|\Z)", text, re.DOTALL)
-    }
+def analyze_sentiment(summary_text):
+    emotion_prompt_template = PromptTemplate(
+    input_variables=["text"],
+    template="""
+You are an expert emotion analyst. You will receive a daily summary of a child's experience and emotions.
 
-    classifier = pipeline(
-        "text-classification",
-        model="j-hartmann/emotion-english-distilroberta-base",
-        return_all_scores=True,
-        truncation=True
+Your task is to evaluate how strongly each of the following emotions is expressed in the text:
+
+- anger
+- disgust
+- fear
+- joy
+- neutral
+- sadness
+- surprise
+
+Rate each emotion on a scale from **1 (not present at all)** to **10 (strongly expressed)**.
+
+### Example Format:
+01/04/2025:
+anger: 2
+disgust: 1
+fear: 4
+joy: 7
+neutral: 3
+sadness: 5
+surprise: 2
+
+### Input:
+{text}
+
+Return the scores in exactly the same format.
+"""
+)
+
+    prompt = emotion_prompt_template.format(text=summary_text)
+    response = client.models.generate_content(
+        model="gemini-2.5-pro-exp-03-25",
+        contents=prompt
     )
+    gemini_output = response.text.strip()
 
-    def score_to_bucket(score): return max(1, int(round(score * 10)))
-
+    # Parse the Gemini output
+    entries = re.findall(r"(\d{2}/\d{2}/\d{4}):\n(.*?)(?=\n\d{2}/\d{2}/\d{4}:|\Z)", gemini_output, re.DOTALL)
+    
     sentiment_by_date = {}
-    for date, summary in daily_summaries.items():
-        scores = classifier(summary)[0]
-        sentiment_by_date[date] = {
-            s['label']: score_to_bucket(s['score']) for s in scores
-        }
+    for date, scores_block in entries:
+        scores = {}
+        for line in scores_block.strip().splitlines():
+            if ':' in line:
+                emotion, value = line.strip().split(":")
+                scores[emotion.strip()] = int(value.strip())
+        sentiment_by_date[date.strip()] = scores
 
+    # Save results
     os.makedirs("output", exist_ok=True)
     with open("output/emotions.json", "w", encoding="utf-8") as f:
         json.dump(sentiment_by_date, f, indent=2, ensure_ascii=False)
@@ -104,6 +137,7 @@ def analyze_sentiment(text, max_length=512):
     print("✅ Sentiment scores saved to output/emotions.json")
     print("sentiment_by_date", sentiment_by_date)
     return sentiment_by_date
+
 
 # ----------------------------------
 # 🔗 LangChain Custom Chain
