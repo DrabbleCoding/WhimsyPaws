@@ -71,3 +71,10 @@ Bot: That’s awesome! I’m glad to see you feeling more upbeat. How was the co
 User: It was fun! And the piano sounds cool. I think I might give it a try.
 Bot: I think you’d be great at it! Keep me posted on how it goes.
 
+Date: 10/04/2025
+Bot: This is a test. Test!!!
+Date: 12/04/2025
+User: DSFDSAF
+
+Date: 12/04/2025
+User: HLPE ME!

@@ -15,12 +15,26 @@ from flask_cors import CORS
 import sys
 import queue
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Queue to store messages to be sent to the frontend
 message_queue = queue.Queue()
+
+# Debug mode flag
+DEBUG_MODE = False
+
+def get_conversation_path():
+    """
+    Get the absolute path to the conversation.txt file.
+    
+    Returns:
+        str: Absolute path to the conversation file
+    """
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(current_dir, '..', 'data', 'coversation.txt')
 
 def get_last_bot_message():
     """
@@ -30,9 +44,7 @@ def get_last_bot_message():
         str: The last Bot message, or None if no message is found
     """
     try:
-        # Get the absolute path to the conversation.txt file
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        conversation_path = os.path.join(current_dir, '..', 'data', 'coversation.txt')
+        conversation_path = get_conversation_path()
         
         with open(conversation_path, 'r') as file:
             lines = file.readlines()
@@ -46,6 +58,24 @@ def get_last_bot_message():
     except Exception as e:
         print(f"Error reading conversation file: {e}", file=sys.stderr)
         return None
+
+def append_to_conversation(message: str, sender: str = "User"):
+    """
+    Append a message to the conversation.txt file.
+    
+    Args:
+        message (str): The message to append
+        sender (str): The sender of the message (default: "User")
+    """
+    try:
+        conversation_path = get_conversation_path()
+        
+        # Simply append the message to the file
+        with open(conversation_path, 'a') as file:
+            file.write(f"{sender}: {message}\n")
+            
+    except Exception as e:
+        print(f"Error appending to conversation file: {e}", file=sys.stderr)
 
 def console_input_handler(message: str):
     """
@@ -73,8 +103,14 @@ def receive_chat():
     if data and 'message' in data:
         message = data['message']
         print(f"Received chat message: {message}", file=sys.stdout)
-        # Echo the message back to the frontend
-        console_input_handler(message)
+        
+        # Append the message to the conversation file
+        append_to_conversation(message)
+        
+        # In debug mode, echo the message back
+        if DEBUG_MODE:
+            console_input_handler(message)
+            
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "No message provided"}), 400
 
@@ -107,7 +143,7 @@ if __name__ == '__main__':
         print(f"Last Bot message: {last_bot_message}", file=sys.stdout)
         console_input_handler(last_bot_message)
     else:
-        print("No previous Bot message found", file=sys.stdout)
+        print("No previous Bot message found", file=sys.stderr)
     
     print("Server running on http://localhost:5000", file=sys.stdout)
     app.run(port=5000, debug=True) 
