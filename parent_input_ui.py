@@ -9,7 +9,7 @@ Date: [Current Date]
 """
 
 import tkinter as tk
-from tkinter import ttk, scrolledtext
+from tkinter import ttk, scrolledtext, messagebox
 from datetime import datetime
 from parent_input_module import ParentInputHandler
 import threading
@@ -103,15 +103,6 @@ class ParentInputUI:
         )
         self.view_button.pack(side=tk.LEFT)
         
-        # Create status bar
-        self.status_bar = ttk.Label(
-            self.main_frame,
-            text="Ready",
-            relief=tk.SUNKEN,
-            anchor=tk.W
-        )
-        self.status_bar.pack(fill=tk.X, side=tk.BOTTOM, pady=(10, 0))
-        
         # Set focus to input text
         self.input_text.focus()
     
@@ -119,20 +110,19 @@ class ParentInputUI:
         """Save the current observation to the file."""
         message = self.input_text.get("1.0", tk.END).strip()
         if not message:
-            self.status_bar.config(text="Please enter an observation before saving")
+            messagebox.showwarning("Empty Input", "Please enter an observation before saving")
             return
         
         def save_thread():
             self.save_button.config(state="disabled")
-            self.status_bar.config(text="Saving...")
             
             success = self.handler.add_observation(message)
             
             if success:
                 self.input_text.delete("1.0", tk.END)
-                self.status_bar.config(text="Observation saved successfully!")
+                messagebox.showinfo("Success", "Observation saved successfully!")
             else:
-                self.status_bar.config(text="Error saving observation")
+                messagebox.showerror("Error", "Failed to save observation")
             
             self.save_button.config(state="normal")
         

@@ -59,9 +59,18 @@ class ParentInputHandler:
             # Prepare the entry
             entry = f"Date: {formatted_date}\nMessage: {message}\n\n"
             
-            # Append the entry to the file
-            with open(self.input_file, 'a', encoding='utf-8') as f:
-                f.write(entry)
+            # Read current content and normalize spacing
+            with open(self.input_file, 'r', encoding='utf-8') as f:
+                content = f.read().strip()  # Remove any trailing whitespace
+            
+            # If there's existing content, ensure it ends with exactly two newlines
+            if content:
+                if not content.endswith('\n\n'):
+                    content = content.rstrip() + '\n\n'
+            
+            # Write the normalized content plus new entry
+            with open(self.input_file, 'w', encoding='utf-8') as f:
+                f.write(content + entry)
             
             return True
         except Exception as e:
