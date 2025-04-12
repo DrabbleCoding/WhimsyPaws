@@ -1,0 +1,76 @@
+==========Conversation==========
+Bot:
+Hey User! How was your day?
+
+User:
+Eh… it was okay, I guess.
+
+Bot:
+Just okay? What happened?
+
+User:
+We had a math test, and I blanked on one of the questions. It was the one with fractions and the weird diagram. I studied, but my brain just… froze.
+
+Bot:
+Ugh, I hate when that happens. But you studied, so that still counts for a lot. Do you think you did alright overall?
+
+User:
+Maybe. I’m not sure. I just keep thinking about that one question. It kind of ruined the rest of my day.
+
+Bot:
+Yeah, that sucks. You seemed kinda quiet at lunch too. Were you thinking about it then?
+
+User:
+Yeah… and also, I didn’t get picked for the soccer team. They posted the list this morning. I thought I had a good chance.
+
+Bot:
+Oh man… I’m really sorry, User. That’s rough. I know you really wanted to be on the team.
+
+User:
+Yeah. I tried not to cry in front of everyone, but it felt really bad.
+
+Bot:
+It’s totally okay to feel like that. I’d be upset too. Do you wanna talk more about it or do something to take your mind off it?
+
+User:
+Maybe a bit of both? Can we hang out at your place after school? I kinda just need a chill day.
+
+Bot:
+Of course! We can play that new racing game and maybe draw stuff after. And if you wanna talk more, I’m here, okay?
+
+User:
+Thanks, Bot. You’re a really good friend.
+
+Bot:
+Always. You’d do the same for me.
+
+==========Parents Input==========
+Date: 01/04/2025
+Message: Riley had a math test today, seemed a bit stressed but managed okay.
+
+Date: 02/04/2025
+Message: Didn’t make the soccer team—disappointed, but Bot helped cheer him up.
+
+Date: 03/04/2025
+Message: Went to Mia’s birthday party, had fun and made a new friend.
+
+Date: 04/04/2025
+Message: Visited grandma in hospital; asked lots of thoughtful questions.
+
+Date: 05/04/2025
+Message: Stayed home with a mild fever—rested most of the day.
+
+Date: 06/04/2025
+Message: Feeling better, spent the afternoon drawing comics.
+
+Date: 07/04/2025
+Message: Back to school, showed off an art project he was proud of.
+
+Date: 08/04/2025
+Message: Bot came over—played games and made slime, very cheerful.
+
+Date: 09/04/2025
+Message: Came home a bit down, someone teased him at school.
+
+Date: 10/04/2025
+Message: Brighter mood today—helped cook dinner and talked about piano lessons.

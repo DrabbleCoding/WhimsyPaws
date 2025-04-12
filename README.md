@@ -1,1 +1,2 @@
-# MedChat
+# Gamified Emotional Monitoring
+
