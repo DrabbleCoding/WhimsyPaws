@@ -63,6 +63,7 @@ This frontend application is designed to work with a Python backend server. The 
 ```
 cd parent_input
 pip install -r requirements.txt
+cd ..
 python parent_input_ui.py
 ```
 

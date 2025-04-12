@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import './App.css';
 import { Observation, ParentInputState } from './types';
 
@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   const fetchObservations = async () => {
     try {
-      setState(prev => ({ ...prev, isLoading: true }));
+      setState(prev => ({ ...prev, isLoading: true, error: null }));
       const response = await axios.get(`${API_BASE_URL}/observations`);
       setState(prev => ({
         ...prev,
@@ -28,9 +28,10 @@ const App: React.FC = () => {
         isLoading: false
       }));
     } catch (error) {
+      console.error('Error fetching observations:', error);
       setState(prev => ({
         ...prev,
-        error: 'Failed to fetch observations',
+        error: 'Failed to fetch observations. Please try again later.',
         isLoading: false
       }));
     }
@@ -41,7 +42,7 @@ const App: React.FC = () => {
     if (!state.currentMessage.trim()) return;
 
     try {
-      setState(prev => ({ ...prev, isLoading: true }));
+      setState(prev => ({ ...prev, isLoading: true, error: null }));
       await axios.post(`${API_BASE_URL}/observations`, {
         message: state.currentMessage
       });
@@ -54,11 +55,21 @@ const App: React.FC = () => {
       
       fetchObservations();
     } catch (error) {
+      console.error('Error saving observation:', error);
       setState(prev => ({
         ...prev,
-        error: 'Failed to save observation',
+        error: 'Failed to save observation. Please try again.',
         isLoading: false
       }));
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      return format(parseISO(dateString), 'dd/MM/yyyy HH:mm');
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return dateString; // Return original string if parsing fails
     }
   };
 
@@ -102,7 +113,7 @@ const App: React.FC = () => {
               {state.observations.map((observation) => (
                 <div key={observation.id} className="observation-card">
                   <p className="observation-date">
-                    {format(new Date(observation.date), 'dd/MM/yyyy HH:mm')}
+                    {formatDate(observation.date)}
                   </p>
                   <p className="observation-message">{observation.message}</p>
                 </div>
