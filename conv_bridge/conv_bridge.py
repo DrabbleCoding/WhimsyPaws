@@ -14,12 +14,38 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sys
 import queue
+import os
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Queue to store messages to be sent to the frontend
 message_queue = queue.Queue()
+
+def get_last_bot_message():
+    """
+    Read the conversation.txt file and return the last message from Bot.
+    
+    Returns:
+        str: The last Bot message, or None if no message is found
+    """
+    try:
+        # Get the absolute path to the conversation.txt file
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        conversation_path = os.path.join(current_dir, '..', 'data', 'coversation.txt')
+        
+        with open(conversation_path, 'r') as file:
+            lines = file.readlines()
+            
+        # Find the last Bot message
+        for line in reversed(lines):
+            if line.startswith('Bot:'):
+                return line.replace('Bot:', '').strip()
+                
+        return None
+    except Exception as e:
+        print(f"Error reading conversation file: {e}", file=sys.stderr)
+        return None
 
 def console_input_handler(message: str):
     """
@@ -74,5 +100,14 @@ def poll_messages():
 
 if __name__ == '__main__':
     print("Starting conversation bridge server...", file=sys.stdout)
+    
+    # Get and display the last Bot message
+    last_bot_message = get_last_bot_message()
+    if last_bot_message:
+        print(f"Last Bot message: {last_bot_message}", file=sys.stdout)
+        console_input_handler(last_bot_message)
+    else:
+        print("No previous Bot message found", file=sys.stdout)
+    
     print("Server running on http://localhost:5000", file=sys.stdout)
     app.run(port=5000, debug=True) 
