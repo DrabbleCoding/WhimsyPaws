@@ -1,0 +1,137 @@
+{
+  "2024-02-20": {
+    "anger": 2,
+    "disgust": 1,
+    "fear": 3,
+    "joy": 7,
+    "neutral": 4,
+    "sadness": 2,
+    "surprise": 5
+  },
+  "2024-02-21": {
+    "anger": 1,
+    "disgust": 2,
+    "fear": 2,
+    "joy": 8,
+    "neutral": 5,
+    "sadness": 1,
+    "surprise": 6
+  },
+  "2024-02-22": {
+    "anger": 3,
+    "disgust": 1,
+    "fear": 4,
+    "joy": 6,
+    "neutral": 3,
+    "sadness": 3,
+    "surprise": 4
+  },
+  "2024-02-23": {
+    "anger": 2,
+    "disgust": 2,
+    "fear": 2,
+    "joy": 9,
+    "neutral": 4,
+    "sadness": 1,
+    "surprise": 7
+  },
+  "2024-02-24": {
+    "anger": 4,
+    "disgust": 3,
+    "fear": 5,
+    "joy": 5,
+    "neutral": 2,
+    "sadness": 4,
+    "surprise": 3
+  },
+  "01/04/2025": {
+    "anger": 2,
+    "disgust": 1,
+    "fear": 6,
+    "joy": 2,
+    "neutral": 3,
+    "sadness": 5,
+    "surprise": 3
+  },
+  "02/04/2025": {
+    "anger": 3,
+    "disgust": 1,
+    "fear": 4,
+    "joy": 2,
+    "neutral": 2,
+    "sadness": 8,
+    "surprise": 5
+  },
+  "03/04/2025": {
+    "anger": 1,
+    "disgust": 1,
+    "fear": 1,
+    "joy": 8,
+    "neutral": 2,
+    "sadness": 1,
+    "surprise": 6
+  },
+  "04/04/2025": {
+    "anger": 1,
+    "disgust": 1,
+    "fear": 3,
+    "joy": 5,
+    "neutral": 5,
+    "sadness": 2,
+    "surprise": 4
+  },
+  "05/04/2025": {
+    "anger": 1,
+    "disgust": 1,
+    "fear": 4,
+    "joy": 1,
+    "neutral": 3,
+    "sadness": 4,
+    "surprise": 2
+  },
+  "06/04/2025": {
+    "anger": 1,
+    "disgust": 1,
+    "fear": 2,
+    "joy": 6,
+    "neutral": 4,
+    "sadness": 2,
+    "surprise": 3
+  },
+  "07/04/2025": {
+    "anger": 1,
+    "disgust": 1,
+    "fear": 1,
+    "joy": 7,
+    "neutral": 4,
+    "sadness": 1,
+    "surprise": 3
+  },
+  "08/04/2025": {
+    "anger": 1,
+    "disgust": 1,
+    "fear": 1,
+    "joy": 8,
+    "neutral": 3,
+    "sadness": 1,
+    "surprise": 4
+  },
+  "09/04/2025": {
+    "anger": 3,
+    "disgust": 2,
+    "fear": 4,
+    "joy": 2,
+    "neutral": 3,
+    "sadness": 6,
+    "surprise": 4
+  },
+  "10/04/2025": {
+    "anger": 1,
+    "disgust": 1,
+    "fear": 1,
+    "joy": 7,
+    "neutral": 4,
+    "sadness": 2,
+    "surprise": 5
+  }
+} 

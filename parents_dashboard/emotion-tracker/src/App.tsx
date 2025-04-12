@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 import './styles/global.css';
 import EmotionChart from './components/EmotionChart';
 import SummaryList from './components/SummaryList';
-import emotionsData from './data/emotions.json';
+import ChildPage from './components/ChildPage';
+
+// Import the data files from the src directory
+import emotionsData from './emotions.json';
+import summaryData from './summary.json';
 
 interface EmotionData {
   date: string;
   emotions: {
-    [key: string]: number;
+    anger: number;
+    disgust: number;
+    fear: number;
+    joy: number;
+    neutral: number;
+    sadness: number;
+    surprise: number;
   };
 }
 
@@ -18,56 +28,73 @@ interface SummaryData {
 
 function App() {
   const [emotionData, setEmotionData] = useState<EmotionData[]>([]);
-  const [summaryData, setSummaryData] = useState<SummaryData[]>([]);
+  const [summaries, setSummaries] = useState<SummaryData[]>([]);
+  const [currentPage, setCurrentPage] = useState<'parent' | 'child'>('parent');
 
   useEffect(() => {
-    console.log('Loading emotion data:', emotionsData);
-    
-    // Load emotion data
-    setEmotionData(emotionsData as EmotionData[]);
-
-    // Generate summary data from emotion data
-    const summaries: SummaryData[] = emotionsData.map((item: EmotionData) => ({
-      date: item.date,
-      description: `Emotional state recorded: ${Object.entries(item.emotions)
-        .map(([emotion, value]) => `${emotion} (${value}/10)`)
-        .join(', ')}`
+    // Convert the emotions data to the format we need
+    const formattedData: EmotionData[] = Object.entries(emotionsData).map(([date, emotions]: [string, any]) => ({
+      date,
+      emotions: {
+        anger: emotions.anger || 0,
+        disgust: emotions.disgust || 0,
+        fear: emotions.fear || 0,
+        joy: emotions.joy || 0,
+        neutral: emotions.neutral || 0,
+        sadness: emotions.sadness || 0,
+        surprise: emotions.surprise || 0
+      }
     }));
-    console.log('Generated summaries:', summaries);
-    setSummaryData(summaries);
+    
+    setEmotionData(formattedData);
+
+    // Convert the summary data to the format we need
+    const formattedSummaries: SummaryData[] = Object.entries(summaryData).map(([date, description]) => ({
+      date,
+      description: description as string
+    }));
+    
+    setSummaries(formattedSummaries);
   }, []);
 
-  console.log('Current emotion data:', emotionData);
-  console.log('Current summary data:', summaryData);
-
   return (
-    <div className="container">
-      <header>
-        <h1>Child Emotion Tracker</h1>
-        <p className="subtitle">Monitor and understand your child's emotional patterns</p>
+    <div className="app">
+      <header className="app-header">
+        <h1>Emotion Tracker</h1>
+        <p className="subtitle">Track and visualize emotional patterns over time</p>
+        <div className="navigation-buttons">
+          <button 
+            className={`nav-button ${currentPage === 'parent' ? 'active' : ''}`}
+            onClick={() => setCurrentPage('parent')}
+          >
+            Parent's Dashboard
+          </button>
+          <button 
+            className={`nav-button ${currentPage === 'child' ? 'active' : ''}`}
+            onClick={() => setCurrentPage('child')}
+          >
+            Child's Dashboard
+          </button>
+        </div>
       </header>
-
-      <main>
-        <section className="chart-section">
-          <h2 className="section-title">Emotion Tracker</h2>
-          {emotionData.length > 0 ? (
-            <EmotionChart data={emotionData} summaryData={summaryData} />
-          ) : (
-            <p>Loading emotion data...</p>
-          )}
-        </section>
-
-        <section className="summary-section">
-          <h2 className="section-title">Daily Summaries</h2>
-          {summaryData.length > 0 ? (
-            <SummaryList summaries={summaryData} />
-          ) : (
-            <p>Loading summaries...</p>
-          )}
-        </section>
+      
+      <main className="main-content">
+        {currentPage === 'parent' ? (
+          <>
+            <section className="chart-section">
+              <EmotionChart data={emotionData} summaryData={summaries} />
+            </section>
+            
+            <section className="summary-section">
+              <SummaryList summaries={summaries} />
+            </section>
+          </>
+        ) : (
+          <ChildPage />
+        )}
       </main>
-
-      <footer>
+      
+      <footer className="app-footer">
         <p>Data last updated: {new Date().toLocaleDateString()}</p>
       </footer>
     </div>
