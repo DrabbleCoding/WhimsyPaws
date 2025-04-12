@@ -16,6 +16,8 @@ import sys
 import queue
 import os
 from datetime import datetime
+import time
+import threading
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -25,6 +27,10 @@ message_queue = queue.Queue()
 
 # Debug mode flag
 DEBUG_MODE = False
+
+# Track the last known Bot message
+last_known_bot_message = None
+monitoring_active = False
 
 def get_conversation_path():
     """
@@ -58,6 +64,28 @@ def get_last_bot_message():
     except Exception as e:
         print(f"Error reading conversation file: {e}", file=sys.stderr)
         return None
+
+def monitor_for_new_bot_message():
+    """
+    Monitor the conversation file for new Bot messages.
+    """
+    global last_known_bot_message, monitoring_active
+    
+    while monitoring_active:
+        try:
+            current_last_bot = get_last_bot_message()
+            
+            # If we found a new Bot message
+            if current_last_bot and current_last_bot != last_known_bot_message:
+                last_known_bot_message = current_last_bot
+                console_input_handler(current_last_bot)
+                monitoring_active = False  # Stop monitoring after finding a new message
+                break
+                
+            time.sleep(1)  # Check every second
+        except Exception as e:
+            print(f"Error monitoring conversation file: {e}", file=sys.stderr)
+            time.sleep(1)
 
 def append_to_conversation(message: str, sender: str = "User"):
     """
@@ -99,6 +127,8 @@ def receive_chat():
     Returns:
         JSON response with status and optional message
     """
+    global monitoring_active, last_known_bot_message
+    
     data = request.json
     if data and 'message' in data:
         message = data['message']
@@ -107,9 +137,12 @@ def receive_chat():
         # Append the message to the conversation file
         append_to_conversation(message)
         
-        # In debug mode, echo the message back
-        if DEBUG_MODE:
-            console_input_handler(message)
+        # Start monitoring for a new Bot message
+        last_known_bot_message = get_last_bot_message()
+        monitoring_active = True
+        monitor_thread = threading.Thread(target=monitor_for_new_bot_message)
+        monitor_thread.daemon = True
+        monitor_thread.start()
             
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "No message provided"}), 400
@@ -138,10 +171,10 @@ if __name__ == '__main__':
     print("Starting conversation bridge server...", file=sys.stdout)
     
     # Get and display the last Bot message
-    last_bot_message = get_last_bot_message()
-    if last_bot_message:
-        print(f"Last Bot message: {last_bot_message}", file=sys.stdout)
-        console_input_handler(last_bot_message)
+    last_known_bot_message = get_last_bot_message()
+    if last_known_bot_message:
+        print(f"Last Bot message: {last_known_bot_message}", file=sys.stdout)
+        console_input_handler(last_known_bot_message)
     else:
         print("No previous Bot message found", file=sys.stderr)
     
