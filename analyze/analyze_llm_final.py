@@ -1,23 +1,20 @@
-pip install google-genai
-
-pip install langchain
+# pip install google-genai
+# pip install langchain
 
 from google import genai
-import json, os
-
-client = genai.Client(api_key="")
-
-# Import necessary libraries
+import os, re, json
 from langchain.prompts import PromptTemplate
 from langchain.chains.base import Chain
 from transformers import pipeline
-import re, json
 
-# -----------------------------
-# Step 1: Define Prompt Templates
-# -----------------------------
+# ----------------------------------
+# 🔑 Set up Gemini API client
+# ----------------------------------
+client = genai.Client(api_key="AIzaSyDaDFAWP27dDnFDY1aio2TC5F3SXL7biig")  
 
-# Prompt for Gemini summarization
+# ----------------------------------
+# 🧠 Prompt Template
+# ----------------------------------
 summarization_prompt = PromptTemplate(
     input_variables=["text"],
     template="""
@@ -53,80 +50,65 @@ Input:
 """
 )
 
+# ----------------------------------
+# 📄 Function: Read input file
+# ----------------------------------
+def read_input_file(path="data/fullcontext.txt"):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        print("⚠️ File not found:", path)
+        return ""
 
-
-
-# Summarization function using Gemini
+# ----------------------------------
+# ✨ Summarize using Gemini
+# ----------------------------------
 def gemini_summarize(text):
-    # Format the prompt for summarization
     prompt = summarization_prompt.format(text=text)
-    # Call the Gemini API using the formatted prompt
     response = client.models.generate_content(
-         model="gemini-2.5-pro-exp-03-25",
-         contents=prompt
+        model="gemini-2.5-pro-exp-03-25",
+        contents=prompt
     )
     return response.text
 
-
-
-
-# Function to analyze sentiment, handles long input safely
+# ----------------------------------
+# 💬 Sentiment Analysis
+# ----------------------------------
 def analyze_sentiment(text, max_length=512):
+    daily_summaries = {
+        date.strip(): summary.strip()
+        for date, summary in re.findall(r"(\d{2}/\d{2}/\d{4}):\n(.+?)(?=\n\d{2}/\d{2}/\d{4}:|\Z)", text, re.DOTALL)
+    }
 
-    # Parse the input into a dictionary
-    daily_summaries = {}
-    entries = re.findall(r"(\d{2}/\d{2}/\d{4}):\n(.+?)(?=\n\d{2}/\d{2}/\d{4}:|\Z)", text, re.DOTALL)
-    for date, summary in entries:
-        daily_summaries[date.strip()] = summary.strip()
-    # Initialize the classifier once
     classifier = pipeline(
         "text-classification",
         model="j-hartmann/emotion-english-distilroberta-base",
         return_all_scores=True,
         truncation=True
     )
-    
-    
-    
-    # Function to scale score (e.g., into 1–10 buckets)
-    def score_to_bucket(score, max_score=1.0, buckets=10):
-        return max(1, int(round(score * buckets)))  # Ensure at least 1
-    
-    # Apply sentiment analysis per day
+
+    def score_to_bucket(score): return max(1, int(round(score * 10)))
+
     sentiment_by_date = {}
-    
     for date, summary in daily_summaries.items():
-        results = classifier(summary)[0]  # Classifier returns a list of lists
-        day_scores = {}
-        for item in results:
-            label = item["label"]
-            score = item["score"]
-            # Scale to 1–10 buckets
-            day_scores[label] = score_to_bucket(score)
-        sentiment_by_date[date] = day_scores
-    print("sentiment_by_date", sentiment_by_date)
-    
+        scores = classifier(summary)[0]
+        sentiment_by_date[date] = {
+            s['label']: score_to_bucket(s['score']) for s in scores
+        }
 
-    # Ensure the output folder exists
     os.makedirs("output", exist_ok=True)
-
-    # Save the sentiment result
     with open("output/emotions.json", "w", encoding="utf-8") as f:
         json.dump(sentiment_by_date, f, indent=2, ensure_ascii=False)
 
     print("✅ Sentiment scores saved to output/emotions.json")
+    print("sentiment_by_date", sentiment_by_date)
+    return sentiment_by_date
 
-
-
-
-
-# -----------------------------
-# Step 3: Create a Custom LangChain
-# -----------------------------
-
+# ----------------------------------
+# 🔗 LangChain Custom Chain
+# ----------------------------------
 class GeminiSentimentChain(Chain):
-    """A LangChain chain that first summarizes text using Gemini and then analyzes its sentiment."""
-    
     @property
     def input_keys(self):
         return ["text"]
@@ -137,29 +119,29 @@ class GeminiSentimentChain(Chain):
 
     def _call(self, inputs):
         text = inputs["text"]
-        # Step 1: Summarization with Gemini (using the summarization prompt)
         summary = gemini_summarize(text)
-        # Step 2: Sentiment analysis on the summary (using the sentiment prompt)
-        sentiment = analyze_sentiment(summary)
+        analyze_sentiment(summary)
         return {"summary": summary}
 
+# ----------------------------------
+# 🧠 Main Entry Point
+# ----------------------------------
+def main():
+    input_text = read_input_file("data/fullcontext.txt")
+    if not input_text:
+        return
 
+    chain = GeminiSentimentChain()
+    result = chain.invoke({"text": input_text})
+    summary = result["summary"]
 
+    print("\n📋 Summary:\n", summary)
 
+    os.makedirs("output", exist_ok=True)
+    with open("output/summary.txt", "w", encoding="utf-8") as f:
+        f.write(summary)
+    print("✅ Summary saved to output/summary.txt")
 
-try:
-    with open("data/fullcontext.txt", "r", encoding="utf-8") as f:
-        input_text = f.read()
-except FileNotFoundError:
-    print("⚠️ input_text.txt not found. Using default input_text.")
-
-
-# Your input text
-
-
-# Instantiate and run the custom chain
-chain = GeminiSentimentChain()
-result = chain.invoke({"text": input_text})
-
-# Output the results
-print("Summary:\n", result["summary"])
+# Run when this file is executed
+if __name__ == "__main__":
+    main()
