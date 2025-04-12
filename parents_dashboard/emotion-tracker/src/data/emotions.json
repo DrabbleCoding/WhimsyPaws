@@ -1,0 +1,83 @@
+[
+  {
+    "date": "2024-04-01",
+    "emotions": {
+      "happiness": 8,
+      "sadness": 2,
+      "anger": 1,
+      "fear": 1,
+      "excitement": 7,
+      "calm": 6
+    }
+  },
+  {
+    "date": "2024-04-02",
+    "emotions": {
+      "happiness": 7,
+      "sadness": 3,
+      "anger": 2,
+      "fear": 1,
+      "excitement": 5,
+      "calm": 4
+    }
+  },
+  {
+    "date": "2024-04-03",
+    "emotions": {
+      "happiness": 9,
+      "sadness": 1,
+      "anger": 1,
+      "fear": 1,
+      "excitement": 8,
+      "calm": 7
+    }
+  },
+  {
+    "date": "2024-04-04",
+    "emotions": {
+      "happiness": 6,
+      "sadness": 4,
+      "anger": 3,
+      "fear": 2,
+      "excitement": 4,
+      "calm": 3,
+      "frustration": 5
+    }
+  },
+  {
+    "date": "2024-04-05",
+    "emotions": {
+      "happiness": 8,
+      "sadness": 2,
+      "anger": 1,
+      "fear": 1,
+      "excitement": 6,
+      "calm": 5,
+      "satisfaction": 7
+    }
+  },
+  {
+    "date": "2024-04-06",
+    "emotions": {
+      "happiness": 7,
+      "sadness": 3,
+      "anger": 2,
+      "fear": 2,
+      "excitement": 5,
+      "calm": 4,
+      "worry": 3
+    }
+  },
+  {
+    "date": "2024-04-07",
+    "emotions": {
+      "happiness": 9,
+      "sadness": 1,
+      "anger": 1,
+      "fear": 1,
+      "excitement": 8,
+      "calm": 7,
+      "contentment": 8
+    }
+  }
+] 
