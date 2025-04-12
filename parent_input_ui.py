@@ -120,7 +120,7 @@ class ParentInputUI:
             
             if success:
                 self.input_text.delete("1.0", tk.END)
-                messagebox.showinfo("Success", "Observation saved successfully!")
+                #messagebox.showinfo("Success", "Observation saved successfully!")
             else:
                 messagebox.showerror("Error", "Failed to save observation")
             

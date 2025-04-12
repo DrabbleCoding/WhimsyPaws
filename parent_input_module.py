@@ -92,17 +92,19 @@ class ParentInputHandler:
             with open(self.input_file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            # Split entries by double newlines
-            entries = content.strip().split('\n\n')
+            # Split entries by '\n\nDate: '
+            entries = content.strip().split('\n\nDate: ')
             
             # Process entries and extract date and message
             observations = []
             for entry in entries:
-                if not entry.strip():
+                entry = entry.strip()
+                if not entry:
                     continue
                 lines = entry.split('\n')
-                date = lines[0].replace('Date: ', '')
+                date = lines[0] #.replace('Date: ', '')
                 message = lines[1].replace('Message: ', '')
+                message = '\n'.join([message] + lines[2:])
                 observations.append((date, message))
             
             # Return the most recent observations
@@ -116,6 +118,7 @@ if __name__ == "__main__":
     # Create an instance of the handler
     handler = ParentInputHandler()
     
+    """
     # Example: Add a new observation
     success = handler.add_observation("Child had a great day at school and made new friends")
     if success:
@@ -127,3 +130,4 @@ if __name__ == "__main__":
     for date, message in latest:
         print(f"Date: {date}")
         print(f"Message: {message}\n") 
+    """
