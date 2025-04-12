@@ -1,80 +1,72 @@
 Date: 01/04/2025
-Bot: Hey User, how was your day?
+Bot (sleepy):Hey User, how was your day?
 User: It was okay... I had that math test, but I froze on a question. It was that one with the fractions. Ugh.
-Bot: That’s tough! I know you studied for it, so don’t be too hard on yourself. How do you think you did overall?
+Bot (sleepy):That’s tough! I know you studied for it, so don’t be too hard on yourself. How do you think you did overall?
 User: I’m not sure. I can’t stop thinking about that one question. It kinda ruined my day.
-Bot: I get it. Tests can be stressful. What did you do after?
+Bot (sleepy):I get it. Tests can be stressful. What did you do after?
 User: Just went through the rest of the day, kinda feeling off. But I’ll survive.
 
 Date: 02/04/2025
-Bot: Hey, how’s it going today?
+Bot (sleepy):Hey, how’s it going today?
 User: Honestly? Not great. I didn’t make the soccer team. I thought I had a good shot.
-Bot: Oh no! That must be really disappointing. How are you feeling about it?
+Bot (sleepy):Oh no! That must be really disappointing. How are you feeling about it?
 User: I tried not to cry in front of everyone, but it still hurt. I’m just bummed out.
-Bot: I’m really sorry, User. You put in the effort, and that’s what counts. Want to hang out after school and take your mind off it?
+Bot (sleepy):I’m really sorry, User. You put in the effort, and that’s what counts. Want to hang out after school and take your mind off it?
 User: Yeah, I’d like that. Thanks, Bot.
 
 Date: 03/04/2025
-Bot: How was your day today?
+Bot (sleepy):How was your day today?
 User: It was actually pretty good! I went to Mia’s birthday party, and I made a new friend.
-Bot: That sounds fun! What did you do there?
+Bot (sleepy):That sounds fun! What did you do there?
 User: We played games, ate cake, and I felt way better. It was just what I needed after yesterday.
-Bot: I’m glad to hear that! Sounds like a good way to bounce back.
+Bot (sleepy):I’m glad to hear that! Sounds like a good way to bounce back.
 
 Date: 04/04/2025
-Bot: How are you today, User?
+Bot (sleepy):How are you today, User?
 User: I’m okay. I went with mom to the hospital to visit Grandma. She’s doing fine, but I had a lot of questions.
-Bot: That’s really thoughtful of you. What did you ask?
+Bot (sleepy):That’s really thoughtful of you. What did you ask?
 User: I asked about her treatment and how she was feeling. It felt good to talk to her.
-Bot: It’s nice that you can have those conversations with her. Sounds like you handled it really well.
+Bot (sleepy):It’s nice that you can have those conversations with her. Sounds like you handled it really well.
 
 Date: 05/04/2025
-Bot: Hey, how are you feeling today?
+Bot (sleepy):Hey, how are you feeling today?
 User: Not great… I have a fever, so I’m just resting.
-Bot: Oh no, I hope you get better soon. Are you able to relax?
+Bot (sleepy):Oh no, I hope you get better soon. Are you able to relax?
 User: Yeah, just lying down and watching some TV. I don’t really feel like doing much.
-Bot: Rest is important. Let me know if you need anything to help pass the time!
+Bot (sleepy):Rest is important. Let me know if you need anything to help pass the time!
 
 Date: 06/04/2025
-Bot: How are you feeling today, User?
+Bot (sleepy):How are you feeling today, User?
 User: Much better! The fever’s gone, and I spent the afternoon drawing comics.
-Bot: That’s awesome! What kind of comics did you draw?
+Bot (sleepy):That’s awesome! What kind of comics did you draw?
 User: Some about a superhero cat. It was fun and made me feel a lot better.
-Bot: I love that idea! It’s great to see you feeling better.
+Bot (sleepy):I love that idea! It’s great to see you feeling better.
 
 Date: 07/04/2025
-Bot: How’s school going?
+Bot (sleepy):How’s school going?
 User: It’s going well! I showed off an art project I made, and I’m really proud of it.
-Bot: That’s amazing! What was the project about?
+Bot (sleepy):That’s amazing! What was the project about?
 User: It’s a painting of a mountain with a sunset. I think it turned out great!
-Bot: I’m sure it looks awesome. You must be feeling really good about it!
+Bot (sleepy):I’m sure it looks awesome. You must be feeling really good about it!
 
 Date: 08/04/2025
-Bot: Hey, how was your day?
+Bot (sleepy):Hey, how was your day?
 User: It was great! Bot came over, and we played games and made slime. I had a lot of fun.
-Bot: That sounds like a blast! What kind of games did you play?
+Bot (sleepy):That sounds like a blast! What kind of games did you play?
 User: We played that racing game we like, and then we just chilled. It was exactly what I needed.
-Bot: I’m glad you had a good time. Sounds like a perfect day for relaxing.
+Bot (sleepy):I’m glad you had a good time. Sounds like a perfect day for relaxing.
 
 Date: 09/04/2025
-Bot: Hey, how are you feeling today?
+Bot (sleepy):Hey, how are you feeling today?
 User: Not great… someone teased me at school. It really got to me.
-Bot: I’m sorry to hear that. That can be tough. Want to talk about it?
+Bot (sleepy):I’m sorry to hear that. That can be tough. Want to talk about it?
 User: It just hurt, you know? I’m trying not to let it bother me, but it’s hard.
-Bot: I understand. It’s okay to feel upset. Do you want to do something to help take your mind off it?
+Bot (sleepy):I understand. It’s okay to feel upset. Do you want to do something to help take your mind off it?
 User: Yeah, I think I’ll just take it easy tonight. Thanks, Bot.
 
 Date: 10/04/2025
-Bot: How’s everything today?
+Bot (sleepy):How’s everything today?
 User: I’m feeling much better today! I helped cook dinner and even talked about maybe trying piano lessons.
-Bot: That’s awesome! I’m glad to see you feeling more upbeat. How was the cooking?
+Bot (neutral):That’s awesome! I’m glad to see you feeling more upbeat. How was the cooking?
 User: It was fun! And the piano sounds cool. I think I might give it a try.
-Bot: I think you’d be great at it! Keep me posted on how it goes.
-
-Date: 10/04/2025
-Bot: This is a test. Test!!!
-Date: 12/04/2025
-User: DSFDSAF
-
-Date: 12/04/2025
-User: HLPE ME!
+Bot (happy):I think you’d be great at it! Keep me posted on how it goes.

@@ -47,7 +47,7 @@ def get_last_bot_message():
     Read the conversation.txt file and return the last message from Bot.
     
     Returns:
-        str: The last Bot message, or None if no message is found
+        str: The last Bot message (without emotional state), or None if no message is found
     """
     try:
         conversation_path = get_conversation_path()
@@ -57,8 +57,10 @@ def get_last_bot_message():
             
         # Find the last Bot message
         for line in reversed(lines):
-            if line.startswith('Bot:'):
-                return line.replace('Bot:', '').strip()
+            if line.startswith('Bot'):
+                # Extract just the message content, removing the emotional state
+                message = line.split('):', 1)[1].strip()
+                return message
                 
         return None
     except Exception as e:
