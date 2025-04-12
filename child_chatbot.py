@@ -116,32 +116,53 @@ Emotion: [Emotion]
 def run_chat():
     chat_history = ""
     child_turns = 0
-    MAX_TURNS = 5
+    MAX_TURNS = 99999
     last_processed_message = None
+    initial_message_count = 0
+
+    # Get initial message count
+    try:
+        conversation_path = get_conversation_path()
+        with open(conversation_path, 'r') as file:
+            initial_message_count = len([line for line in file.readlines() if line.startswith('User:')])
+    except Exception as e:
+        print(f"Error reading initial message count: {e}", file=sys.stderr)
 
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     chat_history += f"Conversation started at: {timestamp}\n\n"
 
-    print("Chatbot ready! Monitoring conversation.txt for messages...\n")
+    print("Chatbot ready! Monitoring conversation.txt for new messages...\n")
 
     while child_turns < MAX_TURNS:
         # Check for new user messages
-        current_message = get_last_user_message()
-        
-        if current_message and current_message != last_processed_message:
-            last_processed_message = current_message
-            child_turns += 1
+        try:
+            conversation_path = get_conversation_path()
+            with open(conversation_path, 'r') as file:
+                current_messages = [line for line in file.readlines() if line.startswith('User:')]
+                current_message_count = len(current_messages)
+                
+                # Only process if we have new messages
+                if current_message_count > initial_message_count:
+                    # Get the newest message (last one in the list)
+                    current_message = current_messages[-1].replace('User:', '').strip()
+                    
+                    if current_message != last_processed_message:
+                        last_processed_message = current_message
+                        initial_message_count = current_message_count
+                        child_turns += 1
 
-            # Get bot response
-            response = chat.send_message(current_message)
-            bot_reply = response.text
+                        # Get bot response
+                        response = chat.send_message(current_message)
+                        bot_reply = response.text
 
-            # Append bot response to conversation
-            append_to_conversation(bot_reply)
+                        # Append bot response to conversation
+                        append_to_conversation(bot_reply)
 
-            if child_turns == MAX_TURNS:
-                append_to_conversation("It's been lovely chatting! I'm getting a little sleepy now. Talk to you again soon!", "Bot (sleepy)")
-                break
+                        if child_turns == MAX_TURNS:
+                            append_to_conversation("It's been lovely chatting! I'm getting a little sleepy now. Talk to you again soon!", "Bot (sleepy)")
+                            break
+        except Exception as e:
+            print(f"Error processing messages: {e}", file=sys.stderr)
 
         time.sleep(1)  # Check every second
 
