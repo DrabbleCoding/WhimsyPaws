@@ -1,0 +1,22 @@
+{
+  "name": "medchat",
+  "version": "1.0.0",
+  "description": "MedChat Application",
+  "private": true,
+  "workspaces": [
+    "parentsdashboard"
+  ],
+  "scripts": {
+    "start": "cd parentsdashboard && npm start",
+    "build": "cd parentsdashboard && npm run build",
+    "test": "cd parentsdashboard && npm test",
+    "install-all": "npm install && cd parentsdashboard && npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^4.4.8",
+    "react-chartjs-2": "^5.3.0"
+  }
+}
