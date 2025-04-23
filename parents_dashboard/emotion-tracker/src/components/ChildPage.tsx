@@ -11,8 +11,11 @@ import surprisedCloud from '../images/assets/surprised_cloud.png';
 import neutralCloud from '../images/assets/neutral_cloud.png';
 import grass from '../images/assets/grass.png';
 
-// Import bear icon
-import bearNeutral from '../images/icons/bear_neutral.png';
+// Import monkey icons
+import monkeyNeutral from '../images/icons/monkey_neutral.png';
+import monkeyHappy from '../images/icons/monkey_happy.png';
+import monkeySad from '../images/icons/monkey_sad.png';
+import monkeySleepy from '../images/icons/monkey_sleepy.png';
 
 const emotions = [
   { name: 'Happy', image: happySun, color: '#FFD700', position: 'top-right' },
@@ -28,6 +31,35 @@ const ChildPage: React.FC = () => {
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [message, setMessage] = useState<string>('How are you feeling today?');
   const [inputText, setInputText] = useState<string>('');
+  const [bearEmotion, setBearEmotion] = useState<'neutral' | 'happy' | 'sad' | 'sleepy'>('neutral');
+
+  // Function to determine bear emotion based on message
+  const updateBearEmotion = (message: string) => {
+    const lowerMessage = message.toLowerCase();
+    
+    // Check for mean/negative words
+    if (lowerMessage.includes('hate') || lowerMessage.includes('stupid') || 
+        lowerMessage.includes('bad') || lowerMessage.includes('angry') ||
+        lowerMessage.includes('sorry') || lowerMessage.includes('wasn\'t fun')) {
+      setBearEmotion('sad');
+    }
+    // Check for positive/exciting words
+    else if (lowerMessage.includes('happy') || lowerMessage.includes('excited') || 
+             lowerMessage.includes('fun') || lowerMessage.includes('great') ||
+             lowerMessage.includes('wonderful') || lowerMessage.includes('awesome')) {
+      setBearEmotion('happy');
+    }
+    // Check for sleepy/tired message
+    else if (lowerMessage.includes('sleepy') || lowerMessage.includes('tired') || 
+             lowerMessage.includes('bye') || lowerMessage.includes('goodbye') ||
+             lowerMessage.includes('talk to you again')) {
+      setBearEmotion('sleepy');
+    }
+    // Default to neutral
+    else {
+      setBearEmotion('neutral');
+    }
+  };
 
   // Poll for new messages from the server
   useEffect(() => {
@@ -38,6 +70,8 @@ const ChildPage: React.FC = () => {
         
         if (data.status === 'success' && data.message) {
           setMessage(data.message);
+          // Update bear emotion based on the bot's response
+          updateBearEmotion(data.message);
         }
       } catch (error) {
         console.error('Error polling for messages:', error);
@@ -49,13 +83,18 @@ const ChildPage: React.FC = () => {
 
   const handleEmotionClick = (emotion: string) => {
     setSelectedEmotion(emotion);
-    setMessage(`You're feeling ${emotion.toLowerCase()}! Would you like to tell me more?`);
+    const newMessage = `You're feeling ${emotion.toLowerCase()}! Would you like to tell me more?`;
+    setMessage(newMessage);
+    updateBearEmotion(newMessage);
   };
 
   const handleSubmit = async () => {
     if (!inputText.trim()) return;
 
     try {
+      // Update bear emotion based on user input before sending
+      updateBearEmotion(inputText);
+      
       const response = await fetch('http://localhost:5000/api/chat', {
         method: 'POST',
         headers: {
@@ -66,13 +105,26 @@ const ChildPage: React.FC = () => {
 
       if (response.ok) {
         setInputText('');
-        // Don't set a default message, let the polling handle the response
       } else {
         setMessage('Sorry, there was an error sending your message. Please try again.');
       }
     } catch (error) {
       console.error('Error sending message:', error);
       setMessage('Sorry, there was an error sending your message. Please try again.');
+    }
+  };
+
+  // Get the appropriate monkey image based on emotion
+  const getMonkeyImage = () => {
+    switch (bearEmotion) {
+      case 'happy':
+        return monkeyHappy;
+      case 'sad':
+        return monkeySad;
+      case 'sleepy':
+        return monkeySleepy;
+      default:
+        return monkeyNeutral;
     }
   };
 
@@ -95,7 +147,7 @@ const ChildPage: React.FC = () => {
         <div className="ground">
           <img src={grass} alt="Grass" className="grass-image" />
           <div className="mascot">
-            <img src={bearNeutral} alt="Bear" className="bear-image" />
+            <img src={getMonkeyImage()} alt="Monkey" className="bear-image" />
             <div className="thought-bubble">
               {message}
             </div>

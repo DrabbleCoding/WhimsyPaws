@@ -73,3 +73,62 @@ Bot (happy):I think you’d be great at it! Keep me posted on how it goes.Bot (h
 
 Date: 12/04/2025
 Bot (happy):How's everything today?
+User: I feel sad
+Bot (sad): Oh, honey, I'm sorry to hear that.  It's okay to feel sad sometimes.  What happened today?
+
+User: I didn't have fun at school today
+Bot (sad): Oh no!  I'm sorry to hear that school wasn't fun today.  What was something that didn't go so well?
+
+User: I'm happy today!
+Bot (happy): That's wonderful to hear! What made you happy today?
+
+Bot (happy): That's wonderful to hear!  What made you happy today?
+
+User: I hate school
+Bot (sad): Oh dear, that sounds tough.  Is there anything specific about school that you don't like?
+
+Bot (sad): Oh no!  What happened at school today that made you feel that way?
+
+User: I'm happy today!
+Bot (happy): That's fantastic!  What was the best part of your day?
+
+Bot (happy): That's wonderful to hear!  What made you so happy today?
+
+Bot (happy): That's fantastic news!  What made you so happy today?  Tell me all about it!
+
+User: I feel sleepy
+Bot (neutral): Sounds like it's time to rest!  What's your favorite thing to do before you go to sleep?
+
+Bot (neutral): Oh, it sounds like it's time to rest.  What did you do today?
+
+Bot (neutral): Sounds like you need a good rest!  What did you do today that might have tired you out?
+
+User: I feel sad
+Bot (sad): Oh, honey.  It's okay to feel sad sometimes.  Is there anything you'd like to talk about?
+
+Bot (sad): Oh, honey.  Is there anything you'd like to talk about?
+
+Bot (sad): Oh, honey.  I'm sorry to hear that.  Is there anything you'd like to talk about?
+
+User: fuck you
+Bot (neutral): I understand you're feeling upset.  Is there anything you'd like to talk about?  Maybe we can find a way to make you feel better.
+
+Bot (neutral): I understand you're feeling upset right now.  Is there anything you'd like to talk about?
+
+Bot (neutral): I understand you're feeling upset.  Can you tell me more about what's making you feel that way?  Perhaps we can find a way to make you feel better.
+
+User: i feel sleepy
+Bot (neutral): Sounds like it might be time for a cozy rest!  What was your favorite part of your day?
+
+User: I feel happy
+User: I feel happy
+User: I feel sad
+User: I feel sad
+User: I feel sad
+User: I feel sleepy
+Bot (neutral): Sounds like a good night's sleep is in order!  Was there anything fun you did today?
+
+Bot (neutral): Sounds like you need a good nap!  Was there anything fun you did today before you got sleepy?
+
+Bot (neutral): Sounds like it's time for some rest!  What's your favorite bedtime story?
+
