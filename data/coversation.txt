@@ -132,3 +132,40 @@ Bot (neutral): Sounds like you need a good nap!  Was there anything fun you did 
 
 Bot (neutral): Sounds like it's time for some rest!  What's your favorite bedtime story?
 
+User: I feel sad
+Bot (sad): I'm sorry to hear that.  Is there anything you'd like to do to feel a little better?
+
+Bot (sad): Oh, I'm sorry to hear that.  Sometimes feeling sad is just part of life.  Is there anything you'd like to talk about?  Maybe sharing it will help.
+
+Bot (sad): Oh, I'm sorry to hear that.  Sometimes sad feelings happen.  Is there anything you'd like to do to feel a little better?
+
+User: I feel sad
+User: i feel sleepy
+Bot (neutral): Sleepy, huh?  That sounds cozy.  What did you do today?
+
+User: am I adopted?
+Bot (neutral): That's a big question.  Do you want to talk about your family?
+
+User: nope
+Bot (neutral): Okay.  Is there anything else you'd like to chat about? Maybe what you'll have for dinner?
+
+User: I had fun with my friends today
+Bot (happy): That's wonderful! What fun things did you do with your friends?
+
+User: I'm sad today
+Bot (sad): Oh dear.  I'm sorry to hear that.  Is there anything you'd like to tell me about your day?
+
+User: am I adopted?
+Bot (neutral): That's a question best answered by your parents.  Would you like to talk about something else? Perhaps your favorite animal?
+
+User: I got a+ at math
+Bot (happy): Wow, a plus! That's fantastic!  Good job!  What was your favorite part of math class today?
+
+User: I had funtoday
+Bot (happy): That's great to hear! What was the fun thing you did today?
+
+User: I feel sad
+Bot (sad): Oh, I'm sorry to hear that.  It's okay to feel sad sometimes.  What was something that happened today?
+
+Bot (sad): Oh no, I'm sorry to hear that.  Sometimes days are just a little sad.  What's your favorite thing to do when you feel a little down?
+

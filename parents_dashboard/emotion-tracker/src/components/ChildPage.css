@@ -4,7 +4,7 @@
   position: relative;
   overflow: hidden;
   background: linear-gradient(to bottom, #87CEEB, #E0F6FF);
-  display: flex;
+  display: block;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -20,6 +20,40 @@
   flex-direction: column;
   position: center;
   margin: 0 auto;
+}
+
+.scene[data-scene="emotion-scene"] {
+  width: 100%;
+  max-width: 800px;
+  height: 100vh;
+  display: contents;
+  flex-direction: column;
+  position: relative;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #87CEEB, #E0F6FF);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scene[data-scene="emotion-scene"] .sky {
+  position: relative;
+  height: 65vh;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #87CEEB, #E0F6FF);
+}
+
+.scene[data-scene="emotion-scene"] .ground {
+  height: 35vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(to bottom, #E0F6FF, #98FB98);
 }
 
 .sky {
@@ -46,10 +80,15 @@
 
 
 .emotion-cloud.top-right {
-  position: absolute ;
+  /* position: absolute;
   top: 20px;
-  right: 20px;
-  transform: scale(1.2);
+  right: ;
+  transform: scale(1.2); */
+
+  top: 5%;
+  right: 5%;
+  padding: 30px;
+  border-radius: 50%;
 }
 
 .emotion-cloud.random {
@@ -123,7 +162,7 @@
 .thought-bubble {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 45%;
   transform: translate(120px, -50%);
   background: white;
   padding: 15px 20px;

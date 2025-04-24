@@ -130,15 +130,22 @@ const ChildPage: React.FC = () => {
 
   return (
     <div className="child-page">
-      <div className="scene">
+      <div className="scene" data-scene="emotion-scene">
         <div className="sky">
           {emotions.map((emotion) => (
             <button
               key={emotion.name}
               className={`emotion-cloud ${emotion.position}`}
+              data-cloud="generic"
+              data-emotion={emotion.name.toLowerCase()}
               onClick={() => handleEmotionClick(emotion.name)}
             >
-              <img src={emotion.image} alt={emotion.name} className="cloud-image" />
+              <img 
+                src={emotion.image} 
+                alt={emotion.name} 
+                className="cloud-image"
+                data-element={emotion.name === 'Happy' ? 'sun' : 'cloud'} 
+              />
               <span className="cloud-text">{emotion.name}</span>
             </button>
           ))}
@@ -146,8 +153,13 @@ const ChildPage: React.FC = () => {
         
         <div className="ground">
           <img src={grass} alt="Grass" className="grass-image" />
-          <div className="mascot">
-            <img src={getMonkeyImage()} alt="Monkey" className="bear-image" />
+          <div className="mascot" data-mascot="monkey">
+            <img 
+              src={getMonkeyImage()} 
+              alt="Monkey" 
+              className="bear-image"
+              data-mascot-state={bearEmotion}
+            />
             <div className="thought-bubble">
               {message}
             </div>
